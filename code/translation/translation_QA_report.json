@@ -1,0 +1,19 @@
+{
+  "rows": 19453,
+  "unique_translated": 14035,
+  "texts_translated": 38906,
+  "texts_missing": 0,
+  "unprocessed_batches": [
+    [
+      "boundary mismatch",
+      493,
+      1,
+      4
+    ]
+  ],
+  "batch_issues_count": 1,
+  "remaining_items": [],
+  "Bengali_in_english": [],
+  "replacements": 811,
+  "output": "/mnt/data/bangla_context_toxicity_train_final_ENGLISH.csv"
+}

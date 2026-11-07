@@ -1,0 +1,15 @@
+# Processing and audit record
+
+**Scope:** training and test Bangla-to-English context–reply translation, with unchanged classification labels. **Date:** November 2026 (individual tool timestamps are not fully retained in these process files). This record is reconstructed from visible conversation messages and saved artifacts. It is **not an authenticated platform event log**.
+
+1. The user requested faithful English translation while preserving meaning, slang, threats, sarcasm, negation, counterspeech, context dependency, labels, identifiers, and order.
+2. The earlier test-set CSV and English test-set output were supplied and are archived in `02_data/`. No complete transformation script for the test set is available here. This is a provenance gap.
+3. The training CSV (`19,453` rows) was imported into a temporary Google Sheets workbook. The process used `=GOOGLETRANSLATE(B2,"bn","en")` and `=GOOGLETRANSLATE(C2,"bn","en")`, then filled formulas down in the relevant English helper columns. Some cells initially remained `Loading...`.
+4. A translation-progress backup saved completed work, and a deduplicated mapping was assembled. The saved preparatory script `prep_batches.py` combined short sets of remaining Bangla text with the token `⟦SEP⟧` for batched processing.
+5. A separate Google Sheets workflow translated 1,674 batches using `GOOGLETRANSLATE`, and the result was saved to `TEMP Bengali Train Remaining Batches.csv`.
+6. The finalizing script checked each batch's segment count, consolidated text mappings, and applied source-aware adjustments for selected profanity, threats, mockery, rhetorical questions, and negation. Its historical QA JSON reports `batch_issues_count: 1`: specifically, one segment-boundary mismatch in batch 493. It also reports `texts_missing: 0` and `replacements: 811`; replacement counts refer to instances affected by the script's corrections, not independently verified correctness.
+7. Additional targeted corrections were made to the final English training CSV following the script-based output. Because the complete history of every such manual adjustment is not independently logged, the supplied final aligned CSV and source-to-final-English mapping should be treated as authoritative archived artifacts.
+8. The final validation run reloaded the source and final English CSV files and compared every non-text cell, record order, and counts. It found 0 changed train non-text values and 0 changed test non-text values, 0 blank translated fields, and 0 residual Bangla-script translated fields.
+9. The temporary Google Sheets workbooks used during training translation were deleted in the recorded workflow. Local copies of intermediate artifacts are retained under `06_source_evidence/`, separated from the final corpora.
+
+**Interpretation:** The workflow has passed mechanical field and row consistency checks. These do not demonstrate nuanced human-equivalent translation quality. A bilingual evaluation is still required for a journal-grade fidelity claim.

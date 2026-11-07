@@ -1,0 +1,144 @@
+{
+  "train": {
+    "source_file": "bangla_context_toxicity_train_final.csv",
+    "english_file": "bangla_context_toxicity_train_final_ENGLISH.csv",
+    "record_count": 19453,
+    "text_field_count": 38906,
+    "columns": [
+      "row_id",
+      "previous_reply",
+      "target_reply",
+      "level_1_class",
+      "toxicity_type"
+    ],
+    "translated_fields": [
+      "previous_reply",
+      "target_reply"
+    ],
+    "identifier_or_source_column": [
+      "row_id"
+    ],
+    "identifiers_are_unique": true,
+    "unchanged_nontext_columns": [
+      "row_id",
+      "level_1_class",
+      "toxicity_type"
+    ],
+    "nontext_cell_differences": 0,
+    "row_order_preserved": true,
+    "missing_english_text_fields": 0,
+    "bangla_script_in_english_fields": 0,
+    "unresolved_translation_markers": 0,
+    "text_fields_identical_to_source": {
+      "previous_reply": 0,
+      "target_reply": 2
+    },
+    "unique_source_texts": 14035,
+    "one_to_multiple_translations_for_same_source_count": 0,
+    "label_distributions": {
+      "Non-toxic | None": 9861,
+      "Toxic | Dehumanization": 796,
+      "Toxic | Harassment": 555,
+      "Toxic | Hate Speech": 808,
+      "Toxic | Identity Attack": 800,
+      "Toxic | Incitement / Encouragement of Harm": 800,
+      "Toxic | Insult": 1923,
+      "Toxic | Mockery / Ridicule": 845,
+      "Toxic | Profanity": 779,
+      "Toxic | Sexual Harassment / Objectification": 763,
+      "Toxic | Threat": 902,
+      "Toxic | Toxic Endorsement / Agreement": 621
+    },
+    "source_sha256": "29f92eae40391851bc14105ce285632ad16f618c8b05cf15a3a42577ac96da31",
+    "english_sha256": "46037e854ddcbfd6423c966139e00f611caa4dc9e7b10709e7952aa512a36e05",
+    "source_size_bytes": 6486021,
+    "english_size_bytes": 3400725
+  },
+  "test": {
+    "source_file": "bangla_toxicity_test_set_HIERARCHICAL_FINAL_v2_2323.csv",
+    "english_file": "bangla_toxicity_test_set_HIERARCHICAL_FINAL_v2_2323_ENGLISH.csv",
+    "record_count": 2323,
+    "text_field_count": 4646,
+    "columns": [
+      "Source",
+      "context",
+      "reply",
+      "level_1_class",
+      "toxicity_type"
+    ],
+    "translated_fields": [
+      "context",
+      "reply"
+    ],
+    "identifier_or_source_column": [
+      "Source"
+    ],
+    "identifiers_are_unique": false,
+    "unchanged_nontext_columns": [
+      "Source",
+      "level_1_class",
+      "toxicity_type"
+    ],
+    "nontext_cell_differences": 0,
+    "row_order_preserved": true,
+    "missing_english_text_fields": 0,
+    "bangla_script_in_english_fields": 0,
+    "unresolved_translation_markers": 0,
+    "text_fields_identical_to_source": {
+      "context": 0,
+      "reply": 1
+    },
+    "unique_source_texts": 3716,
+    "one_to_multiple_translations_for_same_source_count": 4,
+    "label_distributions": {
+      "Non-toxic | None": 1038,
+      "Toxic | Dehumanization": 25,
+      "Toxic | Harassment": 112,
+      "Toxic | Hate Speech": 30,
+      "Toxic | Identity Attack": 15,
+      "Toxic | Incitement / Encouragement of Harm": 28,
+      "Toxic | Insult": 436,
+      "Toxic | Mockery / Ridicule": 466,
+      "Toxic | Profanity": 80,
+      "Toxic | Sexual Harassment / Objectification": 73,
+      "Toxic | Threat": 8,
+      "Toxic | Toxic Endorsement / Agreement": 12
+    },
+    "source_sha256": "3bf9b6a08f58d573d4b8be682f591f791239b47ceb5c2727bc5288206f1ccd52",
+    "english_sha256": "d288dc33f9d69c145a28244c720d3c2f794db19cb56fea552a6a313cb239f954",
+    "source_size_bytes": 897081,
+    "english_size_bytes": 467626
+  },
+  "process_evidence": {
+    "train_qa_report_from_original_workflow": {
+      "rows": 19453,
+      "unique_translated": 14035,
+      "texts_translated": 38906,
+      "texts_missing": 0,
+      "unprocessed_batches": [
+        [
+          "boundary mismatch",
+          493,
+          1,
+          4
+        ]
+      ],
+      "batch_issues_count": 1,
+      "remaining_items": [],
+      "Bengali_in_english": [],
+      "replacements": 811,
+      "output": "/mnt/data/bangla_context_toxicity_train_final_ENGLISH.csv"
+    },
+    "notes": [
+      "One historical batched delimiter mismatch was recorded by the build process; the final training CSV contained no missing translations.",
+      "The available exact train mapping is the evidence needed to reproduce final output independent of live Google Sheets calculations.",
+      "No bilingual expert review of all records is evidenced."
+    ]
+  },
+  "verification_run_utc": "2026-11-07T07:58:42.008881+00:00",
+  "verification_scope": "Structural and script-based checks only; no manual semantic equivalence certification",
+  "human_review_queue_rows": 410,
+  "field_alignment_log_rows": 43552,
+  "combined_records": 21776,
+  "combined_translation_fields": 43552
+}

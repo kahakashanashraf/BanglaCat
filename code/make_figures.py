@@ -1,7 +1,7 @@
 """Regenerate the figures of the revised BanglaCAT data article from the V2 release files.
 
 Usage:
-    python make_figures.py <release_dir> <figure_dir> [--train-review llm|human]
+    python make_figures.py <release_dir> <figure_dir>
 
 Fig. 1  Level-1 and Level-2 label distribution, training vs. test (percentages, counts labelled)
 Fig. 2  Character-length distribution of context and target reply, training vs. test
@@ -19,7 +19,6 @@ import pandas as pd
 from matplotlib.patches import FancyBboxPatch
 
 REL, OUT = Path(sys.argv[1]), Path(sys.argv[2])
-REVIEW = sys.argv[sys.argv.index("--train-review") + 1] if "--train-review" in sys.argv else "human"
 OUT.mkdir(parents=True, exist_ok=True)
 
 TRAIN_C, TEST_C = "#2a78d6", "#eb6834"      # categorical slots 1, 2
@@ -151,9 +150,7 @@ def arrow(x0, y0, x1, y1):
                                                                     shrinkA=0, shrinkB=0))
 
 
-review = ("Three independent LLM review passes:\nAgree/Disagree + corrected Level-1/Level-2\n"
-          "Human spot-check of a sample") if REVIEW == "llm" else \
-         ("Three independent human reviewers:\nAgree/Disagree + corrected Level-1/Level-2")
+review = "Three independent human reviewers:\nAgree/Disagree + corrected Level-1/Level-2"
 LEFT = [("1. Candidate generation", "Claude Sonnet 5\n19,454 context–reply candidates"),
         ("2. Label review", review),
         ("3. Majority vote (2 of 3, joint label)", "19,453 accepted (549 labels changed)\n1 item without majority excluded"),
@@ -182,4 +179,4 @@ yend = box(50, ytop, 96, "Integrity checks, English translation and public relea
 ax.set_ylim(yend - 1, 100)
 fig.savefig(OUT / "fig4_pipeline.png")
 plt.close(fig)
-print("figures written to", OUT, "| train review mode:", REVIEW)
+print("figures written to", OUT)

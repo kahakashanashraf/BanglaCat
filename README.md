@@ -31,6 +31,13 @@ DOI: 10.17632/8vr3w68c7x.2
 | — | Source | `source` |
 | reply_en (test only) | context_en | `context_en` / `target_reply_en` |
 
+## Test-set sources
+
+Comments were copied manually (June 25 – August 25, 2026) from public Facebook pages and YouTube channels. A reply was kept when it was written directly under the post or comment used as its context; no other filtering was applied.
+
+- News and television outlets (8): banglanews24.com, Channel 24, BanglaVision, dbcnews.tv, Jamuna TV, Rtv, Channel i, Durbin News. Their Facebook posts form the `news portal` subset, whose context is the post headline.
+- Other public pages and channels (15): Salman Muqtadir, Cricket Sarcasm, Walter Bhai, Prothom Aluu, Baler Kontho, GojobVision, Lord Association, Apu Biswas, Sabila Nur, Shakib Al Hasan, BNP Media Cell, Bangladesh Awami League, Sarjis Alam, Engineer’s Diary, PUSAB – Private University Students Alliance.
+
 ## Files
 
 | Path | Rows | Content |

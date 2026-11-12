@@ -14,7 +14,8 @@ Changes relative to Version 1
   * Six duplicated test (source, context, reply) identities removed (first occurrence kept):
     2,329 -> 2,323 rows. The Drive final files are already deduplicated; the removed rows are
     read from "final data/test/audit/excluded_duplicate_test_rows.csv".
-  * The English text of both partitions comes from the re-translated Version 2 files.
+  * The English text of both partitions comes from the re-translated Version 2 files, with two
+    logged corrections (750 training replies; one test headline shared by 40 rows).
   * toxicity_type is always the literal string "None" for Non-toxic rows (V1 English test
     file had empty cells).
   * Individual reviewer / annotator votes and adjudication records are released in votes/.
@@ -124,6 +125,21 @@ lost_rows = test[lost].copy()
 test = test[~lost].reset_index(drop=True)
 test_en = test_en[~lost].reset_index(drop=True)
 assert len(test) == 2322
+
+# Correction from the bilingual translation check of the test English (QC item test_0391): the idiom
+# "পেটে লাথি দেওয়া" (to take away someone's livelihood) in one news headline was translated
+# literally. The headline is the context of 40 test rows, so all 40 receive the same corrected text.
+# Every change is logged in code/translation/v2_qc_corrections.csv.
+QC_BN = "পুরো ছাত্রসমাজের পেটে লাথি দেওয়ার জন্য বর্তমান সরকার বন্দোবস্ত করেছে: ডাকসু ভিপি"
+QC_OLD = "DUCSU VP says the current government has arranged to kick the entire student community in the stomach."
+QC_NEW = "DUCSU VP says the current government has arranged to take away the livelihood of the entire student community."
+hit = (test_en.context.map(lambda t: unicodedata.normalize("NFC", t)) == unicodedata.normalize("NFC", QC_BN)).values
+assert hit.sum() == 40 and (test_en.context_en[hit] == QC_OLD).all()
+qc = pd.DataFrame({"row_id": test_en.row_id[hit], "field": "context_en", "qc_item": "test_0391",
+                   "source_bn": test_en.context[hit], "before": QC_OLD, "after": QC_NEW})
+test_en.loc[hit, "context_en"] = QC_NEW
+write(qc, OUT / "code" / "translation" / "v2_qc_corrections.csv")
+print("QC corrections applied:", len(qc))
 
 
 def dedup_key(s, c, r):

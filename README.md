@@ -19,7 +19,7 @@ DOI: 10.17632/8vr3w68c7x.2
 | One schema for all files | Train and test, Bangla and English, now share the same columns (below). |
 | English files aligned | Both English files keep the Bangla text and add `context_en` and `target_reply_en`. |
 | `None` made explicit | `toxicity_type` is the literal string `None` for every Non-toxic row. The V1 English test file had empty cells. |
-| English re-translated in full | In the V1 English test file, 551 fields in 518 of the retained rows still held Bangla text. For V2 the English text of both partitions was translated again in full. The training partition was translated with the GOOGLETRANSLATE function of Google Sheets in a ChatGPT-assisted workflow, followed by script-based corrections; the scripts, log and full source-to-English mapping are in `code/translation/`. One systematic error was then corrected by the authors: in 750 training replies that open with "শান্তভাবে বললে" ("speaking calmly"), the English opening "To put it mildly"/"To put it bluntly" was changed to "To put it calmly"; each change is listed in `code/translation/v2_author_corrections.csv`. No English field in V2 contains Bangla script. Labels and Bangla text are unchanged. |
+| English re-translated in full | In the V1 English test file, 551 fields in 518 of the retained rows still held Bangla text. For V2 the English text of both partitions was translated again in full. The training partition was translated with the GOOGLETRANSLATE function of Google Sheets in a ChatGPT-assisted workflow, followed by script-based corrections; the scripts, log and full source-to-English mapping are in `code/translation/`. One systematic error was then corrected by the authors: in 750 training replies that open with "শান্তভাবে বললে" ("speaking calmly"), the English opening "To put it mildly"/"To put it bluntly" was changed to "To put it calmly"; each change is listed in `code/translation/v2_author_corrections.csv`. In the test partition, one news headline (the context of 40 rows) whose idiom had been translated literally was corrected after the bilingual check of a random sample; the 40 changes are listed in `code/translation/v2_qc_corrections.csv`. No English field in V2 contains Bangla script. Labels and Bangla text are unchanged. |
 | Votes and code released | Individual reviewer/annotator votes, adjudication records, excluded items, analysis notebooks, the release-building script and the figure script. |
 
 ### Column mapping from V1
@@ -50,7 +50,7 @@ No keyword search was used: the authors first listed the pages and channels belo
 | `votes/test_annotation_votes.csv` | 2,330 | Round-1 votes (3 annotators); round-2 votes (3 new annotators) for the 188 items without a round-1 majority; final label, label source, status |
 | `votes/excluded_and_removed_items.csv` | 9 | 1 training item without majority, 1 test item still tied after pooling six votes, 6 removed test duplicates, 1 test item whose reply text was lost (`#NAME?`) |
 | `code/build_release_v2.py` | — | Builds `data/` and `votes/` from the project working files |
-| `code/translation/` | — | Version 2 English translation of the training partition: the original session scripts (`prep_batches.py`, `finalize_train_translation.py`), their saved inputs (`inputs/`), QA report, process log, validation results, the full source-to-English mapping and `v2_author_corrections.csv` (the 750 author corrections). `code/translation/README.md` explains how rerunning the scripts reproduces the delivered English exactly. |
+| `code/translation/` | — | Version 2 English translation of the training partition: the original session scripts (`prep_batches.py`, `finalize_train_translation.py`), their saved inputs (`inputs/`), QA report, process log, validation results, the full source-to-English mapping and `v2_author_corrections.csv` (the 750 author corrections) and `v2_qc_corrections.csv` (the 40-row test headline correction). `code/translation/README.md` explains how rerunning the scripts reproduces the delivered English exactly. |
 | `code/integrity_checks.py` | — | Recomputes the integrity checks reported in the data article: train–test overlap, near-duplicate replies (5-gram Jaccard ≥ 0.80: 18 of 2,322), duplicates, repeated contexts, English-file alignment |
 | `code/make_figures.py` | — | Regenerates Figs. 1–4 of the data article from `data/` |
 | `code/Bangla_Toxicity_IAA_Majority_train_*.ipynb` | — | Training-review agreement (Fleiss' κ, Krippendorff's α, Gwet's AC1, bootstrap CIs) and majority adjudication |
@@ -101,7 +101,7 @@ SHA-256 of the four data files:
 06aef7e1ed4a9fffb52beb92bdd8dc0ffea05508ffce93393fa0d059c092efc5  data/banglacat_train_bn.csv
 cd31f1715d7ce57bd751246ad77b4209bb305d0027296f930400c22d687d1565  data/banglacat_train_en.csv
 c6b7b7fd1bfb3e090101313e89bb5830e4d5e786de06345c981b4c1329fdfffb  data/banglacat_test_bn.csv
-d4f6a84b5fc7a659d27a6e0e3b0cbfcdd8a1e16ac89fe8b167f93bde6f977844  data/banglacat_test_en.csv
+8ec7d8f9c12b84ef7102c0ca334ba4d7e9e2e894d8e483070b001b4f4f28c97b  data/banglacat_test_en.csv
 ```
 
 `CHECKSUMS.sha256` lists every file in the release. To verify: `shasum -a 256 -c CHECKSUMS.sha256`.

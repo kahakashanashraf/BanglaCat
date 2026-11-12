@@ -10,7 +10,7 @@ These files document how the English text of the training partition (`data/bangl
 4. `finalize_train_translation.py`: split the batches, merged them into the mapping and applied source-aware, rule-based corrections to 811 fields (threats, beating versus killing, profanity, insults, rhetorical questions, negation). `translation_QA_report.json` is its report.
 5. Author correction: in 750 replies that open with "শান্তভাবে বললে" ("speaking calmly"), the opening "To put it mildly"/"To put it bluntly" was replaced by "To put it calmly" (`v2_author_corrections.csv`; applied by `../build_release_v2.py`).
 
-The test-set English was produced earlier in the same ChatGPT conversation (GPT-6 Sol) from the same instruction. No intermediate or per-row record of that step was retained.
+The test-set English was produced earlier in the same ChatGPT conversation (GPT-6 Sol) from the same instruction. No intermediate or per-row record of that step was retained. One correction came out of the bilingual check of a random test sample: the news headline "পুরো ছাত্রসমাজের পেটে লাথি দেওয়ার জন্য বর্তমান সরকার বন্দোবস্ত করেছে: ডাকসু ভিপি", whose idiom "পেটে লাথি দেওয়া" (to take away someone's livelihood) had been translated literally ("kick … in the stomach"), now reads "DUCSU VP says the current government has arranged to take away the livelihood of the entire student community." The headline is the context of 40 test rows; each change is listed in `v2_qc_corrections.csv` (applied by `../build_release_v2.py`).
 
 ## Reproduce steps 2 and 4
 
